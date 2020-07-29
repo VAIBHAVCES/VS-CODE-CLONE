@@ -26,8 +26,10 @@ body{
 .container{
 
     /* height: calc(100vh- ( 2rem+55px )); */
-    height:  calc(100vh - (2rem + 55px));;
+    height: calc(100vh - (2rem + 55px));
     border: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
 }
 .btn-container {
     width: 13rem;
@@ -54,5 +56,15 @@ body{
 }
 .tab-container {
     border: 1px solid chartreuse;
-    width: calc(100vw - 18rem);
+    width: calc(100vw - 16rem);
+}
+.file-explorer{
+    height: 100%;
+    width: 30%;
+    border: 1px solid white;
+    overflow: auto;
+}
+.main-container {
+    width: 68%;
+    border: 1px solid;
 }

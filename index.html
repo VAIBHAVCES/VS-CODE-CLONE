@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 </head>
 <body>
     <div id="top-bar" class="top-bar">
@@ -17,12 +18,17 @@
         <div class="tab-container"></div>
     </div>
     <div id="container" class="container">
-        <div id="file-explorer" class="file-explorer"></div>
+        <div id="file-explorer" class="file-explorer">
+            <div id="tree"></div>
+        </div>
         <div class="main-container">
             <div class="editor-container"></div>
             <div class="terminal-container"></div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="index.js"></script>
+
 </body>
 
 </html>
