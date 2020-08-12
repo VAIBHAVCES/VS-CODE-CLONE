@@ -30,6 +30,7 @@ body{
     border: 1px solid gray;
     display: flex;
     justify-content: space-between;
+    resize: both;
 }
 .btn-container {
     width: 13rem;
@@ -38,10 +39,12 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    
 }
 .btn{
         /* width: 100%; */
         background: #565353;
+        border-radius: 3px;
         border: none;
         height: 85%;
         width: 41%;
@@ -51,20 +54,64 @@ body{
      background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);;
     color: black;
 }
+
 .save{
 
 }
 .tab-container {
     border: 1px solid chartreuse;
     width: calc(100vw - 16rem);
+    display: flex;
+    align-items: center;
 }
 .file-explorer{
     height: 100%;
     width: 30%;
     border: 1px solid white;
     overflow: auto;
+    resize: both;
 }
 .main-container {
+    display: flex;
+    flex-direction: column;
     width: 68%;
     border: 1px solid;
+    justify-content: space-between;
 }
+
+::-webkit-scrollbar {
+    width:6px;
+    height: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb{
+/*        background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%); */
+       background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #130e0e
+    }
+
+    #terminal{
+       background-color: red;
+       height: 100%;
+    }
+
+    .editor-container{
+        height: 70%;
+        border: 1px solid;
+    }
+    .terminal-container{
+        height: 28%;
+        border: 1px solid red;
+    }
+    #monaco-codearea{
+        height: 100%;
+    }
+    .tab{
+        height: 80%;
+        min-width:70px;
+        background-color: rgb(56, 55, 55);
+        margin-right:4px;
+    }
