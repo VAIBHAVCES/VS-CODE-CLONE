@@ -2,12 +2,13 @@ const $ = require("jquery");
 const path = require("path");
 const fs = require("fs");
 let editor2;
+let monc;
 $(document).ready(async function () {
   // alert("documenet loaded : "+process.cwd());
 
   let src = process.cwd();
   let name = path.basename(src);
-  let monc;
+  
    editor2=await createEditor();
   console.log(editor2);
   let data = { id: src, parent: "#", text: name };
@@ -19,6 +20,9 @@ $(document).ready(async function () {
     .jstree({
       core: {
         // so that create works
+        themes:{
+          "icons":false
+      },
         check_callback: true,
         data: chobj,
       },
@@ -56,7 +60,10 @@ $(document).ready(async function () {
       // console.log(file_content);
     });
 
-   
+  //  ****************TRY FOR RESIZEABLE
+  $( function() {
+    $( "#file-explorer" ).resizable();
+  } );
 
   // ****************FACED EEVENET BUBBLING HERE
   // let src=process.cwd();
@@ -72,6 +79,7 @@ $(document).ready(async function () {
 
   // })
 
+ 
 
   function getChilds(src) {
     if (!fs.statSync(src).isDirectory()) return [];
@@ -109,6 +117,7 @@ $(document).ready(async function () {
   const xterm = new Terminal();
   const fitAddon=new FitAddon();
   xterm.loadAddon(fitAddon);
+  xterm.setOption('theme', { background: 'rebeccapurple' });
   // document
   xterm.open(document.getElementById("terminal"));
   // Setup communication between xterm.js and node-pty
@@ -122,8 +131,56 @@ $(document).ready(async function () {
     xterm.write(data);
   });
   fitAddon.fit();
-  
+
+  monc.editor.defineTheme('dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [{ background: '#1e2024' }],
+    "colors": {
+        "editor.foreground": "#F8F8F8",
+        "editor.background": "#1e2024",
+        "editor.selectionBackground": "#DDF0FF33",
+        "editor.lineHighlightBackground": "#FFFFFF08",
+        "editorCursor.foreground": "#A7A7A7",
+        "editorWhitespace.foreground": "#FFFFFF40"
+    }
 });
+monc.editor.defineTheme('light', {
+    "base": "vs",
+    "inherit": true,
+    rules: [{ background: '#1e2024' }],
+    "colors": {
+        "editor.foreground": "#3B3B3B",
+        "editor.background": "#FFFFFF",
+        "editor.selectionBackground": "#BAD6FD",
+        "editor.lineHighlightBackground": "#00000012",
+        "editorCursor.foreground": "#000000",
+        "editorWhitespace.foreground": "#BFBFBF"
+    }
+});
+let isDark = false;
+$(".btn.save").on("click", function () {
+    if (isDark) {
+      monc.editor.setTheme('light');
+    } else {
+      monc.editor.setTheme('dark');
+    }
+    isDark = !isDark;
+}) 
+
+});
+
+// $(".btn.save").on("click",function(){
+
+//   // const parseTmTheme = require('monaco-themes').parseTmTheme;
+//   // var themeData = MonacoThemes.parseTmTheme(tmThemeString);
+//   // monaco.editor.defineTheme('mytheme', themeData);
+//   // monaco.editor.setTheme('mytheme');
+//   console.log("i got kicked");
+  
+// })
+  
+
 
 function setContent(file_path){
 
@@ -173,6 +230,7 @@ function createEditor() {
                 "}",
               ].join("\n"),
               language: "javascript",
+              
             }
           );
           monc=monaco;
@@ -188,7 +246,16 @@ function createEditor() {
 
 function createTab(src) {
   let fName = path.basename(src);
-  console.log(src);
+  // let hist=$(".tab-container div span").attr("id");
+  let hist= document.querySelectorAll(".tab-container div span");
+  if(hist.length>0){
+    for(let i=0;i<hist.length;i++){
+      let path=hist[i].getAttribute("id");
+      if(path==src)
+        return ;
+    }
+  }
+  console.log("history is : "+hist.length);
   $(".tab-container").append(`
   <div class="tab" ><span onclick=handleClick(this) id='${src}'>${fName}</span>
   <i class="fas fa-times" onclick=handleClose(this) id='${src}'></i>
